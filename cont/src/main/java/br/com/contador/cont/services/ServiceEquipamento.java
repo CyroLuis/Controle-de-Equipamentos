@@ -60,6 +60,21 @@ public List<Equipamentos> exibir(){
     public void excluir(Long id){
         repository.deleteById(id);
     }
+
+
+    public EquipamentoDto buscarEquipamento(Long id){
+        // Passo 1: Ele usa o Repository para ir ao Banco de Dados.
+        // O 'findById' retorna o registro real (Entity) ou dá erro se não existir.
+        var equip = repository.findById(id).orElseThrow();
+        // Passo 2: Criamos um DTO vazio.
+        // Lembra? DTO é o pacote para transporte, Entity é o registro do banco.
+        var dto = new EquipamentoDto();
+        // Passo 3: BeanUtils.copyProperties copia tudo da Entity para o DTO.
+        // Ele pega "Furadeira" da Entity e coloca no campo "nome" do DTO.
+        BeanUtils.copyProperties(equip,dto);
+        // Passo 4: Ele devolve o DTO pronto para o Controller.
+        return dto;
+    }
 }
 
 

@@ -3,6 +3,7 @@ package br.com.contador.cont.controller;
 import br.com.contador.cont.dtos.EquipamentoDto;
 import br.com.contador.cont.model.Equipamentos;
 import br.com.contador.cont.services.ServiceEquipamento;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -53,6 +54,17 @@ public class ControllerEqui {
     public String excluir(@PathVariable("id") Long id) {
         service.excluir(id);
         return "redirect:/home"; // Redireciona para a lista após deletar
+    }
+
+    @GetMapping("/editar/{id}")
+    public ModelAndView editar(@PathVariable("id") Long id){
+        var mv = new ModelAndView("cadastro");
+
+        var busca = service.buscarEquipamento(id);
+
+        mv.addObject("equipamento", busca);
+
+        return mv;
     }
 }
 

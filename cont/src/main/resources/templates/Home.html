@@ -38,9 +38,9 @@
                         <td th:text="${#temporals.format(equip.dataDeSaida, 'dd/MM/yyyy')}"></td>
                         <td th:text="${equip.nomeOperador}"></td>
                         <td class="text-center">
-                            <button class="btn btn-warning btn-sm">
-                                <i class="bi bi-pencil"></i>
-                            </button>
+                            <a th:href="@{/editar/{id}(id=${equip.id})}" class="btn btn-warning btn-sm">
+                                <i class="bi bi-pencil"></i> Editar
+                            </a>
                             <a th:href="@{/excluir/{id}(id=${equip.id})}"
                                class="btn btn-danger btn-sm"
                                onclick="return confirm('Tem certeza que deseja excluir este equipamento?')">
