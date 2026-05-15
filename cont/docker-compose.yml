@@ -1,0 +1,34 @@
+services:
+  db:
+    image: mysql:9.0
+    container_name: mysql-contador
+    restart: always
+    environment:
+      - MYSQL_ROOT_PASSWORD=Angela12
+      - MYSQL_DATABASE=contador
+      - MYSQL_USER=cyro
+      - MYSQL_PASSWORD=Angela12
+    ports:
+      - "3307:3306"
+    volumes:
+      # Garante que os dados do banco não sumam
+      - mysql_data:/var/lib/mysql
+
+  app:
+    build: . # O Docker vai ler o seu 'Dockerfile' aqui
+    container_name: spring-app-contador
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+    volumes:
+      # O VOLUME DAS FOTOS!
+      # Mapeia uma pasta no seu PC para a pasta de uploads dentro do Docker
+      - ./upload-dir:/app/upload-dir
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://db:3306/contador
+      - SPRING_DATASOURCE_USERNAME=cyro
+      - SPRING_DATASOURCE_PASSWORD=Angela12
+
+volumes:
+  mysql_data:

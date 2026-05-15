@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Detalhes do Equipamento</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+<div class="container mt-5">
+    <div class="card shadow">
+        <div class="card-header bg-dark text-white">
+            <h3 class="mb-0">Detalhes: <span th:text="${equipamento.nome}"></span></h3>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-4 text-center">
+                    <div th:if="${equipamento.fotoCaminho != null}">
+                        <img th:src="@{/imagens/{foto}(foto=${equipamento.fotoCaminho})}"
+                             class="img-fluid rounded shadow-sm" alt="Foto do equipamento">
+                    </div>
+                    <div th:unless="${equipamento.fotoCaminho != null}" class="alert alert-secondary">
+                        Sem foto disponível
+                    </div>
+                </div>
+
+                <div class="col-md-8">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item"><strong>ID:</strong> <span th:text="${equipamento.id}"></span></li>
+                        <li class="list-group-item"><strong>Operador:</strong> <span th:text="${equipamento.nomeOperador}"></span></li>
+                        <li class="list-group-item"><strong>Data de Entrada:</strong> <span th:text="${#temporals.format(equipamento.dataDeEntrada, 'dd/MM/yyyy')}"></span></li>
+                        <li class="list-group-item"><strong>Data de Saída:</strong> <span th:text="${#temporals.format(equipamento.dataDeSaida, 'dd/MM/yyyy')}"></span></li>
+                    </ul>
+
+                    <div class="mt-4 p-3 border rounded bg-white">
+                        <h5>Comentários:</h5>
+                        <p th:text="${equipamento.comentario}" class="text-muted"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer text-end">
+            <a th:href="@{/home}" class="btn btn-secondary">Voltar para a Lista</a>
+        </div>
+    </div>
+</div>
+</body>
+</html>
